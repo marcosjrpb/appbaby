@@ -1,47 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 class Animais extends StatefulWidget {
-  const Animais({super.key});
+  const Animais({Key? key});
 
   @override
   State<Animais> createState() => _AnimaisState();
 }
 
 class _AnimaisState extends State<Animais> {
+
+  late AudioPlayer player;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Create the audio player.
+    player = AudioPlayer();
+
+    // Set the release mode to keep the source after playback has completed.
+    player.setReleaseMode(ReleaseMode.stop);
+  }
+
+  void _executar(String? nomeSom) async {
+    if (nomeSom != null) {
+      //
+      await player.setSource(AssetSource('audios/$nomeSom.mp3'));
+      await player.resume();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double largura = MediaQuery.of(context).size.width;
-    double altura = MediaQuery.of(context).size.height;
     return GridView.count(
-        crossAxisCount: 2,
-        childAspectRatio: MediaQuery.of(context).size.aspectRatio *2,
-        children: [
-          GestureDetector(
-            onTap: (){},
-            child: Image.asset("assets/images/cao.png"),
-          ),
-          GestureDetector(
-            onTap: (){},
-            child: Image.asset("assets/images/gato.png"),
-          ),
-          GestureDetector(
-            onTap: (){},
-            child: Image.asset("assets/images/leao.png"),
-          ),
-          GestureDetector(
-            onTap: (){},
-            child: Image.asset("assets/images/macaco.png"),
-          ),
-          GestureDetector(
-            onTap: (){},
-            child: Image.asset("assets/images/ovelha.png"),
-          ),
-          GestureDetector(
-            onTap: (){},
-            child: Image.asset("assets/images/vaca.png"),
-          ),
-
-        ],
-
+      crossAxisCount: 2,
+      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
+      children: [
+        GestureDetector(
+          onTap: () {
+            _executar("cao");
+          },
+          child: Image.asset("assets/images/cao.png"),
+        ),
+        GestureDetector(
+          onTap: () {
+            _executar("gato");
+          },
+          child: Image.asset("assets/images/gato.png"),
+        ),
+        GestureDetector(
+          onTap: () {
+            _executar("leao");
+          },
+          child: Image.asset("assets/images/leao.png"),
+        ),
+        GestureDetector(
+          onTap: () {
+            _executar("macaco");
+          },
+          child: Image.asset("assets/images/macaco.png"),
+        ),
+        GestureDetector(
+          onTap: () {
+            _executar("ovelha");
+            },
+          child: Image.asset("assets/images/ovelha.png"),
+        ),
+        GestureDetector(
+          onTap: () {
+            _executar("vaca");
+          },
+          child: Image.asset("assets/images/vaca.png"),
+        ),
+      ],
     );
   }
 }
