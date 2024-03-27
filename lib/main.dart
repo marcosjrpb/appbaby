@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'telas/Home.dart';
 
 void main() {
   runApp( MaterialApp(
