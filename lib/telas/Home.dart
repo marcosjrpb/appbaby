@@ -1,17 +1,19 @@
-import 'package:appbaby/telas/Animais.dart';
-import 'package:appbaby/telas/Numeros.dart';
-import 'package:appbaby/telas/Vogais.dart';
 import 'package:flutter/material.dart';
 
+import 'Animais.dart';
+import 'Numeros.dart';
+import 'Vogais.dart';
+
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  TabController? _tabController;
+  late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
@@ -20,18 +22,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
+    _tabController.dispose();
     super.dispose();
-    _tabController!.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-        Text("Aprenda Inglês"),
+        centerTitle: true,
+        title: Text("Aprenda Inglês",style:TextStyle(color: Colors.white,)),
         bottom: TabBar(
+          indicatorWeight: 4.0,
+          indicatorColor: Colors.white, // Cor do fundo da aba selecionada
+          labelColor: Colors.white, // Cor do texto da aba selecionada
+          unselectedLabelColor: Colors.white.withOpacity(0.6), // Cor do texto das abas não selecionadas
+          labelStyle: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
           controller: _tabController,
           tabs: [
             Tab(
@@ -43,19 +52,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             Tab(
               text: "Vogais",
             ),
-
           ],
         ),
+        backgroundColor: Colors.brown,
       ),
-      body:TabBarView(
+      body: TabBarView(
+
         controller: _tabController,
         children: [
           Animais(),
           Numeros(),
           Vogais(),
         ],
-      ) ,
-
+      ),
     );
   }
 }
